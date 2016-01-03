@@ -18,20 +18,13 @@ if (Platform.OS === 'ios') {
     invariant(CookieManager, "Invalid platform");
 }
 
-module.exports = {
-  set(props, callback) {
-    CookieManager.set(props, (err, res) => {
-      callback(err, res);
-    });
-  },
-  clearAll(callback) {
-    CookieManager.clearAll((err, res) => {
-      callback(err, res);
-    });
-  },
-  getAll(callback) {
-    CookieManager.getAll((err, res) => {
-      callback(err, res);
-    });
-  }
+functions = [
+    'setUrl',
+    'set',
+    'getAll',
+    'clearAll',
+]
+module.exports = {}
+for(var i=0; i < functions.length; i++) {
+    module.exports[functions[i]] = CookieManager[functions[i]];
 }
