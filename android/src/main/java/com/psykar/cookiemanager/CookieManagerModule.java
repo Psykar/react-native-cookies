@@ -41,23 +41,19 @@ public class CookieManagerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setUrl(String url) {
-        this.url = url;
+    public void set(ReadableMap cookie, final Callback callback) throws Exception {
+        throw new Exception("Cannot call on android, try setFromHeader");
     }
 
     @ReactMethod
-    public void set(ReadableMap cookie, final Callback callback) throws Exception {
-        if (this.url == null) {
-            throw new Exception("Must set url first.");
-        }
+    public void setFromHeader(String url, String value, final Callback callback) {
         ValueCallback newCallback = new ValueCallback() {
             @Override
             public void onReceiveValue(Object value) {
                 callback.invoke(value);
             }
         };
-
-        this.cookieManager.setCookie(this.url, cookie.getString("value"), newCallback);
+        this.cookieManager.setCookie(url, value, newCallback);
     }
 
     @ReactMethod
