@@ -32,10 +32,11 @@ RCT_EXPORT_METHOD(set:(NSDictionary *)props callback:(RCTResponseSenderBlock)cal
     callback(@[[NSNull null], @"success"]);
 }
 
-// TODO: implement
-// RCT_EXPORT_METHOD(get:(NSString *)name) {
-//     callback(@[[NSNull null], @"success"]);
-// }
+RCT_EXPORT_METHOD(getCookieHeader:(NSString *)url) {
+    NSArray *cookies = [NSHTTPCookie cookiesForURL:url];
+    NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+    callback(@[headers, @"success"]);
+}
 
 RCT_EXPORT_METHOD(clearAll:(RCTResponseSenderBlock)callback) {
     NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];

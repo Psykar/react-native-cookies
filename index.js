@@ -23,6 +23,7 @@ functions = [
     'set',
     'getAll',
     'clearAll',
+    'getCookieHeader',
 ]
 module.exports = {}
 for(var i=0; i < functions.length; i++) {
