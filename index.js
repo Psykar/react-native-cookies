@@ -6,13 +6,12 @@ var RNCookieManagerIOS = NativeModules.RNCookieManagerIOS;
 var RNCookieManagerAndroid = NativeModules.RNCookieManagerAndroid;
 
 var CookieManager;
-console.log("Trying....");
 if (Platform.OS === 'ios') {
-    invariant(RNCookieManagerIOS, 
-            'Add RNCookieMangerIOS.h and RNCookieManagerIOS.m to your Xcode project');
+    invariant(RNCookieManagerIOS,
+      'Add RNCookieMangerIOS.h and RNCookieManagerIOS.m to your Xcode project');
     CookieManager = RNCookieManagerIOS;
 } else if (Platform.OS === 'android') {
-    invariant(RNCookieManagerAndroid, 'Import libraries to android');
+    invariant(RNCookieManagerAndroid, 'Import libraries to android `rnpm link`');
     CookieManager = RNCookieManagerAndroid;
 } else {
     invariant(CookieManager, "Invalid platform");
@@ -23,6 +22,7 @@ functions = [
     'set',
     'getAll',
     'clearAll',
+    'setFromHeader',
     'getCookieHeader',
 ]
 module.exports = {}

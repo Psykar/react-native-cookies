@@ -15,7 +15,7 @@ Cookie manager for react native.
 ```javascript
 var CookieManager = require('react-native-cookies');
 
-// set a cookie
+// set a cookie (IOS ONLY)
 CookieManager.set({
   name: 'myCookie',
   value: 'myValue',
@@ -30,7 +30,7 @@ CookieManager.set({
   console.log(res);
 });
 
-// list cookies
+// list cookies (IOS ONLY)
 CookieManager.getAll((err, res) => {
   console.log('cookies!');
   console.log(err);
@@ -44,11 +44,22 @@ CookieManager.clearAll((err, res) => {
   console.log(res);
 });
 
+// Get cookies as a request header string
+CookieManager.getCookieHeader('http://example.com', (res) => {
+  console.log('Got cookies for url', res);
+  // Outputs 'user_session=abcdefg; path=/;'
+})
+
+// Set cookies from a response header (untested)
+CookieManager.setFromHeader('http://example.com', 'user_session=abcdefg; path=/; expires=Thu, 1 Jan 2030 00:00:00 -0000; secure; HttpOnly', (res) => {
+  console.log("Set cookie", res);
+})
+
+
 ```
 
 ### Roadmap
 
-- Expose `get` method
 - Proper `getAll` dictionary by domain
 - Proper error handling
 - Anything else?
