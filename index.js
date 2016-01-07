@@ -1,32 +1,36 @@
-var NativeModules = require('react-native').NativeModules;
+var React = require('react-native');
+var NativeModules = React.NativeModules;
+var Platform = React.Platform;
 var invariant = require('invariant');
 var RNCookieManagerIOS = NativeModules.RNCookieManagerIOS;
+var RNCookieManagerAndroid = NativeModules.RNCookieManagerAndroid;
+
+var CookieManager;
+console.log("Trying....");
+if (Platform.OS === 'ios') {
+    invariant(RNCookieManagerIOS, 
+            'Add RNCookieMangerIOS.h and RNCookieManagerIOS.m to your Xcode project');
+    CookieManager = RNCookieManagerIOS;
+} else if (Platform.OS === 'android') {
+    invariant(RNCookieManagerAndroid, 'Import libraries to android');
+    CookieManager = RNCookieManagerAndroid;
+} else {
+    invariant(CookieManager, "Invalid platform");
+}
 
 module.exports = {
   set(props, callback) {
-    invariant(
-      NativeModules.RNCookieManagerIOS,
-      'Add RNCookieManagerIOS.h and RNCookieManagerIOS.m to your Xcode project.'
-    );
-    RNCookieManagerIOS.set(props, (err, res) => {
+    CookieManager.set(props, (err, res) => {
       callback(err, res);
     });
   },
   clearAll(callback) {
-    invariant(
-      NativeModules.RNCookieManagerIOS,
-      'Add RNCookieManagerIOS.h and RNCookieManagerIOS.m to your Xcode project.'
-    );
-    RNCookieManagerIOS.clearAll((err, res) => {
+    CookieManager.clearAll((err, res) => {
       callback(err, res);
     });
   },
   getAll(callback) {
-    invariant(
-      NativeModules.RNCookieManagerIOS,
-      'Add RNCookieManagerIOS.h and RNCookieManagerIOS.m to your Xcode project.'
-    );
-    RNCookieManagerIOS.getAll((err, res) => {
+    CookieManager.getAll((err, res) => {
       callback(err, res);
     });
   }
